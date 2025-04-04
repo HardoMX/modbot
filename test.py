@@ -1,4 +1,11 @@
 import discord
+import logging
+import yaml
+
+with open("secrets.yaml", "r") as file:
+    TOKEN = yaml.safe_load(file)["tokens"]["discord"]
+
+handler = logging.FileHandler(filename="discord.log", encoding="utf-8", mode="w")
 
 class MyClient(discord.Client):
     async def on_ready(self):
@@ -18,4 +25,4 @@ intents.message_content = True
 
 client = MyClient(intents=intents)
 
-client.run("<token>")
+client.run(TOKEN, log_handler=handler)
