@@ -1,8 +1,7 @@
 FROM python:latest
 
 ADD test.py .
-ADD secrets.yaml .
 
-RUN python -m pip install discord.py PyYAML
+RUN python -m pip install discord.py azure-identity azure-keyvault-secrets
 
 CMD ["python", "./test.py"]
