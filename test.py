@@ -1,14 +1,19 @@
 import discord
 import logging
-import yaml
+from azure.identity import DefaultAzureCredential
+from azure.keyvault.secrets import SecretClient
 
+credential = DefaultAzureCredential()
 
-with open("secrets.yaml", "r") as file:
-    TOKEN = yaml.safe_load(file)["tokens"]["discord"]
+client = SecretClient(
+    vault_url = "https://modbot.vault.azure.net/",
+    credential = credential
+)
+
+TOKEN = client.get_secret("discord-token").value
 
 
 handler = logging.FileHandler(filename="discord.log", encoding="utf-8", mode="w")
-
 
 class MyClient(discord.Client):
     async def on_ready(self):
