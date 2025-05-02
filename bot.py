@@ -23,7 +23,9 @@ TOKEN = client.get_secret("discord-token").value
 intents = discord.Intents.default()
 intents.message_content = True
 
-bot = commands.Bot(command_prefix="$", intents=intents)
+activity = discord.Activity(name="You", type=discord.ActivityType.watching)
+
+bot = commands.Bot(command_prefix="$", intents=intents, activity=activity)
 
 @bot.event
 async def on_ready():
