@@ -6,6 +6,9 @@ from azure.keyvault.secrets import SecretClient
 import discord
 from discord.ext import commands
 
+import logging
+
+logger = logging.getLogger(__name__)
 
 credential = DefaultAzureCredential()
 
@@ -24,12 +27,15 @@ bot = commands.Bot(command_prefix="$", intents=intents)
 
 @bot.event
 async def on_ready():
-    print(f"Logged on as {bot.user}!")
+    print(f"Logged in as {bot.user}!")
+    logger.info(f"Logged in as {bot.user}!")
     print("================")
+    logger.info("================")
 
 @bot.event
 async def on_message(message):
     print(f"Message from {message.author}: {message.content}")
+    logger.info(f"Message from {message.author}: {message.content}")
 
     await bot.process_commands(message)
 
@@ -39,4 +45,5 @@ async def test(ctx):
 
 
 async def run_bot():
+    logger.info("Bot starting")
     await bot.start(TOKEN)
