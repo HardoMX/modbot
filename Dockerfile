@@ -1,7 +1,7 @@
 FROM python:latest
 
-ADD test.py .
+ADD modbot.py .
 
-RUN python -m pip install discord.py azure-identity azure-keyvault-secrets fastapi uvicorn[standard]
+RUN python -m pip install discord.py azure-identity azure-keyvault-secrets fastapi[standard] uvicorn[standard]
 
-CMD ["python", "./test.py"]
+CMD ["python", "./modbot.py"]
